@@ -1,0 +1,45 @@
+package com.example.finalworkacj
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.finalworkacj.adapter.TeamAdapter
+import com.example.finalworkacj.databinding.FragmentListTeamsBinding
+import com.example.finalworkacj.model.TeamList
+import com.example.finalworkacj.network.RetrofitInstance
+import com.example.finalworkacj.network.SoccerService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+class ListTeamsFragment : Fragment() {
+    lateinit var binding: FragmentListTeamsBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_list_teams, container, false)
+
+        val retrofit = RetrofitInstance.getRetrofitInstance()
+        val request = retrofit.create(SoccerService::class.java)
+        val call = request.getAllTeams()
+
+        call.enqueue(object : Callback<TeamList> {
+            override fun onFailure(call: Call<TeamList>, t: Throwable) {
+                Toast.makeText(context, "An error has ocurred -- ${t.message }", Toast.LENGTH_LONG).show()
+            }
+            override fun onResponse(call: Call<TeamList>, response: Response<TeamList>) {
+                binding.recyclerView.apply{
+                    setHasFixedSize(true)
+                    adapter = TeamAdapter(response.body()!!.teams.take(10))
+                    layoutManager = LinearLayoutManager(context)
+                }
+            }
+        })
+        return binding.root
+    }
+}

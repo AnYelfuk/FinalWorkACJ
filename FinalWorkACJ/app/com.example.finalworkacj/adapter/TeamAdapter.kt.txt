@@ -1,0 +1,46 @@
+package com.example.finalworkacj.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
+import com.example.finalworkacj.ListTeamsFragmentDirections
+import com.example.finalworkacj.R
+import com.example.finalworkacj.databinding.ListTeamLayoutBinding
+import com.example.finalworkacj.model.SoccerTeam
+import com.squareup.picasso.Picasso
+
+class TeamAdapter(val teamList: List<SoccerTeam>) : RecyclerView.Adapter<TeamAdapter.TeamHolder>() {
+
+    lateinit var binding: ListTeamLayoutBinding
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding =  DataBindingUtil.inflate<ListTeamLayoutBinding>(layoutInflater, R.layout.list_team_layout, parent, false)
+
+        return TeamHolder(binding)
+    }
+    inner class TeamHolder(val binding: ListTeamLayoutBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(team: SoccerTeam){
+
+            binding.teamNameText.text = team.strTeam
+            Picasso.get().load(team.strTeamBadge).into(binding.teamBadgeImage)
+            binding.teamStadiumText.text = team.strStadium
+            Picasso.get().load(team.strTeamJersey).into(binding.teamJerseyImage)
+            binding.teamDescEnText.text = team.strDescriptionEN
+
+            binding.teamDescriptionBtn.setOnClickListener {
+                it.findNavController().navigate(ListTeamsFragmentDirections.actionListTeamsFragmentToDetailsTeamFragment(team))
+            }
+        }
+    }
+    override fun getItemCount(): Int {
+        return teamList.size
+    }
+    override fun onBindViewHolder(holder: TeamHolder, position: Int) {
+        holder.bind(teamList[position])
+    }
+}

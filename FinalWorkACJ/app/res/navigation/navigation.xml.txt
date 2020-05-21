@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/listTeamsFragment">
+
+    <fragment
+        android:id="@+id/listTeamsFragment"
+        android:name="com.example.finalworkacj.ListTeamsFragment"
+        android:label="@string/team_list_fragment"
+        tools:layout="@layout/fragment_list_teams">
+        <action
+            android:id="@+id/action_listTeamsFragment_to_detailsTeamFragment"
+            app:destination="@id/detailsTeamFragment"
+            app:popUpTo="@id/listTeamsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsTeamFragment"
+        android:name="com.example.finalworkacj.DetailsTeamFragment"
+        android:label="@string/details_team_fragment"
+        tools:layout="@layout/fragment_details_team" >
+        <action
+            android:id="@+id/action_detailsTeamFragment_to_listTeamsFragment"
+            app:destination="@id/listTeamsFragment"
+            app:popUpTo="@id/listTeamsFragment" />
+        <argument
+            android:name="team"
+            app:argType="com.example.finalworkacj.model.SoccerTeam" />
+    </fragment>
+</navigation>

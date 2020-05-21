@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FinalWorkACJ</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="detalles_btn">detalles</string>
+    <string name="team_list_fragment">Lista de equipos de españa</string>
+    <string name="details_team_fragment">Informacion de los equipos</string>
+    <string name="badgeImage">Escudo del equipo</string>
+    <string name="jerseyImage">Jersey del equipo</string>
+</resources>

@@ -1,0 +1,11 @@
+package com.example.finalworkacj.model
+
+import java.io.Serializable
+
+data class SoccerTeam (
+    val strTeam: String?,
+    val strStadium: String?,
+    val strTeamBadge: String?,
+    val strTeamJersey: String?,
+    val strDescriptionEN: String?
+) : Serializable
